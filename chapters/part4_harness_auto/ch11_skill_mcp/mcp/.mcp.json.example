@@ -1,0 +1,15 @@
+{
+  "//": "project scope 예시입니다. 이 파일은 프로젝트에 공유되므로 비밀 값을 직접 적지 않습니다.",
+  "//키": "비밀 값·토큰을 이 파일에 직접 쓰지 않습니다. 토큰은 환경변수로 주입합니다.",
+  "mcpServers": {
+    "my-data": {
+      "transport": "http",
+      "url": "https://example.com/mcp"
+    },
+    "local-data": {
+      "transport": "stdio",
+      "command": "node",
+      "args": ["server.js"]
+    }
+  }
+}

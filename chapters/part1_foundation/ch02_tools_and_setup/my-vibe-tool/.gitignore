@@ -1,0 +1,19 @@
+# 환경 변수와 키 파일은 절대 올리지 않습니다
+.env
+.env.local
+*.key
+*.pem
+
+# 의존성과 빌드 산출물
+node_modules/
+dist/
+build/
+
+# 파이썬 캐시
+__pycache__/
+*.pyc
+
+# 운영체제·편집기 부산물
+.DS_Store
+.vscode/
+.idea/

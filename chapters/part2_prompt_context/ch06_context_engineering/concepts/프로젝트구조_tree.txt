@@ -1,0 +1,9 @@
+.
+├── CLAUDE.md          # 프로젝트 규칙 · AI 작업 가이드
+├── app.py             # Flask 라우트(목록·추가·완료 토글)
+├── test_app.py        # pytest 테스트 4건
+├── requirements.txt   # 의존성(Flask, pytest)
+├── .gitignore
+└── templates/
+    └── index.html     # 할 일 목록 화면
+1 directory, 6 files

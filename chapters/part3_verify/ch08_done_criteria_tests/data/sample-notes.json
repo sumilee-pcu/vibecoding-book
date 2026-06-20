@@ -1,0 +1,8 @@
+[
+  { "title": "Python 입문", "author": "Kim", "memo": "기초 문법 정리" },
+  { "title": "SQL 노트", "author": "Lee", "memo": "데이터 조회 연습" },
+  { "title": "자료구조", "author": "Park", "memo": "python 예제로 설명" },
+  { "title": "운영체제", "author": "Choi", "memo": "프로세스와 스레드" },
+  { "title": "네트워크 기초", "author": "Jung", "memo": "TCP 흐름 제어" },
+  { "title": "클린 코드", "author": "Han", "memo": "읽기 좋은 코드 작성법" }
+]

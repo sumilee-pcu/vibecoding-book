@@ -1,0 +1,9 @@
+{
+  "name": "book-note-search-lab",
+  "version": "1.0.0",
+  "description": "도서 메모 검색 도구 실습 (의존성 없음, Node 내장 테스트 러너)",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}

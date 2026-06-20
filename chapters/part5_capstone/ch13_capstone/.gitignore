@@ -1,0 +1,24 @@
+# 비밀 키·토큰·환경 변수는 절대 올리지 않습니다
+.env
+.env.local
+*.key
+*.pem
+secrets.*
+
+# 개인정보가 들어갈 수 있는 실데이터는 올리지 않습니다(가짜 데이터만 공개)
+data/real_*.json
+data/private/
+
+# 의존성과 빌드 산출물
+node_modules/
+dist/
+build/
+
+# 파이썬 캐시
+__pycache__/
+*.pyc
+
+# 운영체제·편집기 부산물
+.DS_Store
+.vscode/
+.idea/

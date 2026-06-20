@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>할 일 목록</title>
+  <style>
+    /* 외부 라이브러리 없이 한 페이지로 동작하는 할 일 목록 앱입니다.
+       책 4.1의 강한 프롬프트 예시(입력창 하나 + 추가 버튼 + 목록,
+       빈 제목은 추가하지 않음, 데이터는 메모리에만)를 그대로 구현했고,
+       뒤 장에서 더해지는 우선순위와 완료 토글까지 담았습니다. */
+    body { font-family: -apple-system, "Malgun Gothic", sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; color: #1f2a37; }
+    h1 { font-size: 24px; margin-bottom: 4px; }
+    .sub { color: #6b7280; font-size: 14px; margin-bottom: 20px; }
+    .add { display: flex; gap: 8px; margin-bottom: 18px; }
+    .add input[type="text"] { flex: 1; height: 42px; padding: 0 12px; font-size: 15px; border: 1px solid #d1d5db; border-radius: 8px; }
+    .add select { height: 42px; border: 1px solid #d1d5db; border-radius: 8px; padding: 0 8px; }
+    .add button { height: 42px; padding: 0 18px; border: 0; border-radius: 8px; background: #2563eb; color: #fff; font-weight: 600; cursor: pointer; }
+    ul { list-style: none; padding: 0; }
+    li { display: flex; align-items: center; gap: 12px; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+    li.done .title { color: #9ca3af; text-decoration: line-through; }
+    .title { flex: 1; }
+    .tag { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+    .tag.high { background: #fee2e2; color: #dc2626; }
+    .tag.mid { background: #fef3c7; color: #b45309; }
+    .tag.low { background: #dbeafe; color: #2563eb; }
+    .empty { color: #9ca3af; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>할 일 목록</h1>
+  <p class="sub">할 일을 입력하고 추가를 누르면 아래 목록에 더해집니다. 항목을 누르면 완료로 표시됩니다.</p>
+
+  <div class="add">
+    <input id="title" type="text" placeholder="할 일을 입력하세요" />
+    <select id="priority">
+      <option value="높음">높음</option>
+      <option value="보통" selected>보통</option>
+      <option value="낮음">낮음</option>
+    </select>
+    <button id="addBtn">추가</button>
+  </div>
+
+  <ul id="list"></ul>
+
+  <script>
+    // 데이터는 우선 메모리에만 둡니다(저장 연동은 다음 단계의 과제).
+    var todos = [];
+    var titleInput = document.getElementById("title");
+    var prioritySelect = document.getElementById("priority");
+    var listEl = document.getElementById("list");
+
+    var TAG_CLASS = { "높음": "high", "보통": "mid", "낮음": "low" };
+
+    function render() {
+      listEl.innerHTML = "";
+      if (todos.length === 0) {
+        var p = document.createElement("li");
+        p.className = "empty";
+        p.textContent = "아직 할 일이 없습니다.";
+        listEl.appendChild(p);
+        return;
+      }
+      todos.forEach(function (todo, index) {
+        var li = document.createElement("li");
+        if (todo.done) li.className = "done";
+
+        var span = document.createElement("span");
+        span.className = "title";
+        span.textContent = todo.title;
+        // 항목을 누르면 완료 상태를 토글합니다.
+        span.addEventListener("click", function () {
+          todos[index].done = !todos[index].done;
+          render();
+        });
+
+        var tag = document.createElement("span");
+        tag.className = "tag " + TAG_CLASS[todo.priority];
+        tag.textContent = todo.priority;
+
+        li.appendChild(span);
+        li.appendChild(tag);
+        listEl.appendChild(li);
+      });
+    }
+
+    function addTodo() {
+      var title = titleInput.value.trim();
+      // 빈 제목은 추가하지 않습니다.
+      if (title === "") return;
+      todos.push({ title: title, priority: prioritySelect.value, done: false });
+      titleInput.value = "";
+      titleInput.focus();
+      render();
+    }
+
+    document.getElementById("addBtn").addEventListener("click", addTodo);
+    titleInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") addTodo();
+    });
+
+    render();
+  </script>
+</body>
+</html>
