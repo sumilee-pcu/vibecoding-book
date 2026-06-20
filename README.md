@@ -5,7 +5,7 @@
 ## 무엇이 들어 있나
 
 - **[`chapters/`](chapters/)** — 4부 13장 + 종합(capstone)의 장별 실습. 각 폴더에 학습 목표·프롬프트 예시·실습 안내·예제 파일·체크리스트.
-  - 실습 인덱스(장 → 폴더): **[`chapters/README.md`](chapters/README.md)** ← 여기서 시작
+  - 실습 인덱스(장 → 폴더): **[`chapters/README.md`](chapters/README.md)** — 여기서 시작하세요
 - **[`examples/`](examples/)** — 여러 장에 걸쳐 이어 쓰는 예제 앱(할 일 목록 화면, 할 일 API).
 - **[`appendix-kit/`](appendix-kit/)** — 부록 즉시활용 자료(설치 트러블슈팅·오류 사전·요금 가이드·프롬프트 치트시트).
 - **[`WORKBOOK.md`](WORKBOOK.md)** — 장별 연습문제 + 자기평가 루브릭 + 수료 기준.

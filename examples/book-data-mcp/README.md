@@ -46,7 +46,7 @@ python _mcp_smoke.py   # MCP 핸드셰이크 + 도구 호출
 claude mcp add --scope user book-data -- python "$(pwd)/server.py"
 
 # 연결 확인
-claude mcp list            # book-data: ... - ✓ Connected
+claude mcp list            # book-data: ... - Connected
 # Claude Code 안에서는 /mcp 로도 확인
 ```
 
