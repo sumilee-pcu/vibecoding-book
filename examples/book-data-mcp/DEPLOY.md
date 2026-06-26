@@ -14,15 +14,27 @@ python -m venv .venv
 
 ## 배포 — Render (무료, 권장)
 
-이 저장소는 이미 GitHub(`sumilee-pcu/vibecoding-book`)에 있으므로 가장 간단하다.
+저장소는 이미 GitHub(`sumilee-pcu/vibecoding-book`)에 있고, 웹앱은 하위 폴더
+`examples/book-data-mcp/`에 있다. Blueprint는 `render.yaml`이 저장소 루트에 있어야
+자동 인식하므로, 여기서는 **New Web Service + Root Directory 지정** 방식을 쓴다
+(이 폴더의 `Dockerfile`을 Render가 자동으로 인식한다).
 
-1. 이 폴더의 변경(app.py, requirements.txt, render.yaml, Dockerfile, Procfile)을 커밋·푸시한다.
-2. https://render.com 로그인 → **New +** → **Blueprint**.
-3. `vibecoding-book` 저장소를 선택하면 `examples/book-data-mcp/render.yaml`을 자동 인식한다.
-4. (선택) 환경변수 `NAVER_CLIENT_ID`/`NAVER_CLIENT_SECRET`, `GOOGLE_BOOKS_API_KEY` 입력.
-5. **Apply** → 빌드 후 `https://book-data-web.onrender.com` 형태의 공개 URL이 생긴다.
-   - 헬스체크: `/health`, API 문서: `/api/docs`.
+1. https://render.com 로그인 → **New +** → **Web Service**.
+2. **Build and deploy from a Git repository** → `vibecoding-book` 연결.
+3. 설정:
+   - **Root Directory**: `examples/book-data-mcp`
+   - **Runtime**: Docker(Dockerfile 자동 감지) — 또는 Python으로 두면
+     Build `pip install -r requirements.txt`, Start `uvicorn app:app --host 0.0.0.0 --port $PORT`
+   - **Health Check Path**: `/health`
+   - **Instance Type**: Free
+4. (선택) **Environment** 탭에 `NAVER_CLIENT_ID`/`NAVER_CLIENT_SECRET`,
+   `GOOGLE_BOOKS_API_KEY` 입력(한국어 신간 커버리지).
+5. **Create Web Service** → 빌드 후 `https://<이름>.onrender.com` 공개 URL 생성.
+   - API 문서: `/api/docs`.
    - 무료 플랜은 일정 시간 미사용 시 슬립하며, 첫 요청에 수십 초가 걸릴 수 있다.
+
+> 루트에 `render.yaml`을 두고 Blueprint로 하고 싶다면 `render.yaml`을 저장소 루트로
+> 옮긴다(이미 `rootDir: examples/book-data-mcp`가 들어 있다).
 
 ## 배포 — Hugging Face Spaces (Docker)
 
