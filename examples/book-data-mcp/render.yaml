@@ -1,0 +1,19 @@
+# Render Blueprint — 무료 웹서비스로 book-data 웹앱 배포
+# 사용법: 이 폴더를 GitHub 저장소로 올리고, Render에서 New > Blueprint 로 연결.
+services:
+  - type: web
+    name: book-data-web
+    runtime: python
+    plan: free
+    rootDir: examples/book-data-mcp
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      # 무키로 동작한다. 한국어 신간 커버리지를 높이려면 아래 키를 대시보드에서 채운다.
+      - key: NAVER_CLIENT_ID
+        sync: false
+      - key: NAVER_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_BOOKS_API_KEY
+        sync: false
