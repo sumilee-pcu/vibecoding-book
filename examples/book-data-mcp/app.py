@@ -37,25 +37,6 @@ def api_search(
     return JSONResponse(server.search_books(q, limit))
 
 
-@app.get("/api/_diag")
-def api_diag():
-    """임시 진단: 외부 도서 API로의 아웃바운드 호출 결과(상태/예외)를 그대로 돌려준다."""
-    import httpx
-    out = {}
-    targets = {
-        "openlibrary": ("https://openlibrary.org/search.json", {"q": "design patterns", "limit": 1}),
-        "googlebooks": ("https://www.googleapis.com/books/v1/volumes", {"q": "design patterns", "maxResults": 1}),
-    }
-    for name, (url, params) in targets.items():
-        try:
-            r = httpx.get(url, params=params, headers=server.HEADERS, timeout=20.0)
-            body = r.text[:200]
-            out[name] = {"status": r.status_code, "len": len(r.text), "body_head": body}
-        except Exception as e:
-            out[name] = {"error": f"{type(e).__name__}: {e}"}
-    return JSONResponse(out)
-
-
 PAGE = """<!doctype html>
 <html lang="ko">
 <head>

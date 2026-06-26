@@ -43,12 +43,24 @@ python -m venv .venv
 3. HF가 자동 빌드하고 `https://<id>-book-data-web.hf.space` 공개 URL을 준다.
 4. (선택) Space Settings의 **Secrets**에 도서 API 키를 넣는다.
 
-## 환경변수 (모두 선택)
+## 환경변수
 
 | 변수 | 효과 |
 |---|---|
+| `GOOGLE_BOOKS_API_KEY` | Google Books 쿼터 상향 — **클라우드 배포 시 사실상 필수** |
 | `NAVER_CLIENT_ID` / `NAVER_CLIENT_SECRET` | 한국 책·전자책 ISBN 커버리지 |
 | `KAKAO_REST_KEY` | 네이버가 놓친 신간 보강 |
-| `GOOGLE_BOOKS_API_KEY` | Google Books 쿼터 상향 |
 
-없어도 동작한다(Open Library/Google Books 무키). 단, 한국어 신간은 키가 없으면 잘 안 잡힌다.
+> ⚠️ **클라우드(Render/HF 등)에서는 키 없이 거의 조회가 안 된다.** 데이터센터 IP에서는
+> Google Books가 익명 일일 쿼터 초과로 `429`를 주고, Open Library가 연결을 리셋한다
+> (집/사무실 IP에서는 무키로도 잘 된다). 따라서 공개 배포본이 실제 데이터를 돌려주게 하려면
+> **무료 `GOOGLE_BOOKS_API_KEY`를 발급해 환경변수에 넣는 것이 핵심이다.** 한국어 책까지
+> 잘 잡으려면 네이버 책검색 키도 함께 넣는다.
+
+### Google Books API 키 발급(무료) 후 Render에 넣기
+
+1. https://console.cloud.google.com 에서 프로젝트 생성 → **APIs & Services → Library**에서
+   **Books API** 사용 설정 → **Credentials → Create credentials → API key**로 키 발급.
+2. Render 서비스 → **Environment** 탭 → **Add Environment Variable**:
+   `GOOGLE_BOOKS_API_KEY` = 발급받은 키 → **Save**. 저장하면 자동으로 재배포된다.
+3. 배포 후 `/api/search?q=clean+code` 로 결과가 돌아오는지 확인한다.
